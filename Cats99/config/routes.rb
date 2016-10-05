@@ -54,5 +54,13 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :cats 
+  resources :cats do
+    resources :cat_rental_requests, only: [:create, :new] do
+      post "approve", on: :member
+      post "deny", on: :member
+    end
+
+    root to: redirect("/cats")
+  end
+
 end

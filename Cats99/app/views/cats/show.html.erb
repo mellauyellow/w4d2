@@ -19,3 +19,18 @@
     <td><%= @cat.description %></td>
   </tr>
 </table>
+
+<form action="<%= cat_cat_rental_request_url(cat_rental_request) %>" method="post">
+  <input name="_method" type="hidden" value="patch" />
+  <label for="cat_rentals">Cat Rentals</label>
+  <br>
+  <select id="cat_rentals" name="cat_rental_request[id]">
+    <option selected value=""></option>
+    <% @cat.rentals.each do |rental| %>
+      <% next unless rental.status == 'PENDING' %>
+      <option value="<%= if rental.status == rental.id %>"><%= rental.start_date %><%= rental.end_date %></option>
+    <% end %>
+  </select>
+  <input type="submit"/>
+</form>
+<p>
